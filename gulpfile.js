@@ -10,6 +10,7 @@ const prefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const clean = require('gulp-clean-css');
 const sourcemap = require('gulp-sourcemaps');
+const annotate = require('gulp-ng-annotate');
 
 const globs = {
   dist: {
@@ -30,9 +31,10 @@ gulp.task('transpile', () => {
   console.log(gutil.colors.green.bold("Initializing transpiler"));
   return gulp.src(globs.src.js)
     .pipe(plumber())  
+    .pipe(annotate())
     .pipe(babel({ presets: ["es2015"] }))
     .pipe(sourcemap.init())
-    .pipe(uglify({mangle: false, compress:true}))
+    .pipe(uglify({mangle: true, compress:true}))
     .pipe(sourcemap.write())
     .pipe(gulp.dest(globs.dist.js));
 });
