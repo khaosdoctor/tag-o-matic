@@ -1,4 +1,5 @@
 angular.module('squid')
-    .controller('loginController', ($scope, $http) => {
+  .controller('loginController', loginController);
 
-  });
+function loginController($scope, $http) {
+}
