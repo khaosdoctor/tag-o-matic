@@ -32,7 +32,7 @@ gulp.task('transpile', () => {
     .pipe(plumber())  
     .pipe(babel({ presets: ["es2015"] }))
     .pipe(sourcemap.init())
-    .pipe(uglify())
+    .pipe(uglify({mangle: false, compress:true}))
     .pipe(sourcemap.write())
     .pipe(gulp.dest(globs.dist.js));
 });
