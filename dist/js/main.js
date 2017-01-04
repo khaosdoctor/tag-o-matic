@@ -1,2 +1,0 @@
-"use strict";angular.module("squid",[]);
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uanMiXSwibmFtZXMiOlsiYW5ndWxhciIsIm1vZHVsZSJdLCJtYXBwaW5ncyI6IkFBQUEsWUFFQUEsU0FBUUMsT0FBTyIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBzdHJpY3QnO1xuXG5hbmd1bGFyLm1vZHVsZSgnc3F1aWQnLCBbXSk7Il19
