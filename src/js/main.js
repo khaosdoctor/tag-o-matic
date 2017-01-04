@@ -1,1 +1,1 @@
-angular.module('squid', []);
+angular.module('loginModule', []);
