@@ -17,12 +17,14 @@ const globs = {
     css: "./dist/css",
     js: "./dist/js",
     img: "./dist",
-    html: "./dist"
+    html: "./dist",
+    lib: "./dist/lib"
   },
   src: {
     sass: "./src/sass/**/*.{scss,sass}",
     js: "./src/js/**/*.js",
     img: "./src/**/*.{png,jpg,jpeg,gif,svg}",
+    lib: "./src/lib/**/*",
     html: "./src/**/*.html"
   }
 }
@@ -52,7 +54,7 @@ gulp.task('sass', () => {
     .pipe(gulp.dest(globs.dist.css));
 });
 
-gulp.task('htmlmin', () => {
+gulp.task('htmlmin', ['transpile', 'sass'], () => {
   console.log(gutil.colors.green.bold("Initializing HTML minifier"));
   return gulp.src(globs.src.html)
     .pipe(plumber())
@@ -78,10 +80,19 @@ gulp.task('imagemin', () => {
     .pipe(gulp.dest(globs.dist.img))
 });
 
+gulp.task('libs', () => {
+  return gulp.src(globs.src.lib)
+    .pipe(plumber())
+    .pipe(gulp.dest(globs.dist.lib));
+});
+
 gulp.task('watch', () => {
   console.log(gutil.colors.cyan.bold(">> My watch has started"));
   gulp.watch(globs.src.js, ['transpile']);
   gulp.watch(globs.src.sass, ['sass']);
   gulp.watch(globs.src.html, ['htmlmin']);
   gulp.watch(globs.src.img, ['imagemin']);
+  gulp.watch(globs.src.lib, ['libs']);
 });
+
+gulp.task('default', ['libs','imagemin','htmlmin']);
