@@ -39,8 +39,7 @@ gulp.task('transpile', () => {
     .pipe(sourcemap.init())
     .pipe(uglify({mangle: true, compress:true}))
     .pipe(sourcemap.write())
-    .pipe(gulp.dest(globs.dist.js))
-    .pipe(bs.reload());
+    .pipe(gulp.dest(globs.dist.js));
 });
 
 
@@ -48,7 +47,7 @@ gulp.task('sass', () => {
   console.log(gutil.colors.green.bold("Initializing Sass compiler"));
   return gulp.src(globs.src.sass)
     .pipe(plumber())
-    .pipe(sass({ style: "compressed" }).on('error', gutil.log))
+    .pipe(sass({ style: "compressed" }).on('error', sass.logError))
     .pipe(prefixer({ browsers: 'last 5 version' }))
     .pipe(sourcemap.init())
     .pipe(clean())
@@ -72,8 +71,7 @@ gulp.task('htmlmin', ['transpile', 'sass'], () => {
       useShortDoctype: true
     }))
     .pipe(sourcemap.write())
-    .pipe(gulp.dest(globs.dist.html))
-    .pipe(bs.reload());
+    .pipe(gulp.dest(globs.dist.html));
 });
 
 gulp.task('imagemin', () => {
