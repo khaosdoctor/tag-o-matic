@@ -1,5 +1,5 @@
 (function () {
-  'use strinct';
+  'use strict';
   
   angular.module('loginModule')
     .controller('loginController', loginController);
