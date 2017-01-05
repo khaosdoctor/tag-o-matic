@@ -89,7 +89,7 @@ gulp.task('libs', () => {
 gulp.task('watch', () => {
   console.log(gutil.colors.cyan.bold(">> My watch has started"));
   gulp.watch(globs.src.js, ['transpile']);
-  gulp.watch(globs.src.sass, ['sass']);
+  gulp.watch("./src/sass/**/*.{scss,sass}", ['sass']);
   gulp.watch(globs.src.html, ['htmlmin']);
   gulp.watch(globs.src.img, ['imagemin']);
   gulp.watch(globs.src.lib, ['libs']);
