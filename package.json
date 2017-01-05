@@ -7,6 +7,7 @@
     "test": "nyc ava ./tests/test.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "gulp",
+    "watch": "gulp watch",
     "dev": "node_modules/.bin/lite-server"
   },
   "repository": {

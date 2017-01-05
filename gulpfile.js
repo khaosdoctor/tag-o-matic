@@ -21,7 +21,7 @@ const globs = {
     lib: "./dist/lib"
   },
   src: {
-    sass: "./src/sass/**/*.{scss,sass}",
+    sass: "./src/sass/*.{scss,sass}",
     js: "./src/js/**/*.js",
     img: "./src/**/*.{png,jpg,jpeg,gif,svg}",
     lib: "./src/lib/**/*",
