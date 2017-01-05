@@ -11,6 +11,7 @@ const uglify = require('gulp-uglify');
 const clean = require('gulp-clean-css');
 const sourcemap = require('gulp-sourcemaps');
 const annotate = require('gulp-ng-annotate');
+const bs = require('browser-sync');
 
 const globs = {
   dist: {
@@ -38,7 +39,8 @@ gulp.task('transpile', () => {
     .pipe(sourcemap.init())
     .pipe(uglify({mangle: true, compress:true}))
     .pipe(sourcemap.write())
-    .pipe(gulp.dest(globs.dist.js));
+    .pipe(gulp.dest(globs.dist.js))
+    .pipe(bs.reload());
 });
 
 
@@ -51,7 +53,8 @@ gulp.task('sass', () => {
     .pipe(sourcemap.init())
     .pipe(clean())
     .pipe(sourcemap.write())
-    .pipe(gulp.dest(globs.dist.css));
+    .pipe(gulp.dest(globs.dist.css))
+    .pipe(bs.stream());
 });
 
 gulp.task('htmlmin', ['transpile', 'sass'], () => {
@@ -69,7 +72,8 @@ gulp.task('htmlmin', ['transpile', 'sass'], () => {
       useShortDoctype: true
     }))
     .pipe(sourcemap.write())
-    .pipe(gulp.dest(globs.dist.html));
+    .pipe(gulp.dest(globs.dist.html))
+    .pipe(bs.reload());
 });
 
 gulp.task('imagemin', () => {
@@ -83,7 +87,8 @@ gulp.task('imagemin', () => {
 gulp.task('libs', () => {
   return gulp.src(globs.src.lib)
     .pipe(plumber())
-    .pipe(gulp.dest(globs.dist.lib));
+    .pipe(gulp.dest(globs.dist.lib))
+    .pipe(bs.stream());
 });
 
 gulp.task('watch', () => {
