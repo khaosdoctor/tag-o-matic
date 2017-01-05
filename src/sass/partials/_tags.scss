@@ -5,3 +5,19 @@ html {
 body {
   background-color: $bg-color;
 }
+
+header {
+  width: 100%;
+  .logo {
+    @include align(left);
+    @include font-light;
+    color: $text-color;
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+  position: fixed;
+  top: 0;
+  box-shadow: 0 3px 5px 1px rgba(100,100,100,0.3);
+}
