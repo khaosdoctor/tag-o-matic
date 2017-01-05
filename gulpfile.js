@@ -23,7 +23,7 @@ const globs = {
   src: {
     sass: "./src/sass/*.{scss,sass}",
     js: "./src/js/**/*.js",
-    img: "./src/**/*.{png,jpg,jpeg,gif,svg}",
+    img: "./src/**/*.{png,jpg,jpeg,gif}",
     lib: "./src/lib/**/*",
     html: "./src/**/*.html"
   }
