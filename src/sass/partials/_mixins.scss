@@ -1,0 +1,33 @@
+@mixin font-light {
+  font-family: 'Poiret One', cursive;
+}
+
+@mixin font-common {
+  font-family: 'Dosis', sans-serif;
+}
+
+@mixin font-mono {
+  font-family: 'Cutive Mono', monospace;
+}
+
+@mixin reset {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin align($pos) {
+  text-align: $pos;
+}
+
+@mixin weight-light {
+  font-weight: 200;
+}
+@mixin weight-normal {
+  font-weight: 500;
+}
+@mixin weight-semi-bold {
+  font-weight: 600;
+}
+@mixin weight-bold {
+  font-weight: 700;
+}
