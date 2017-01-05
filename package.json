@@ -6,6 +6,8 @@
   "scripts": {
     "test": "nyc ava ./tests/test.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build": "gulp",
+    "watch": "gulp watch",
     "dev": "node_modules/.bin/lite-server"
   },
   "repository": {
@@ -28,6 +30,7 @@
     "gulp-clean-css": "^2.3.2",
     "gulp-htmlmin": "^3.0.0",
     "gulp-imagemin": "^3.1.1",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^3.0.0",
     "gulp-sourcemaps": "^1.9.1",

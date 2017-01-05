@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io/api/node,windows,macos,linux,visualstudiocode,sublimetext,vim
 
+**/dist/**
+
 ### Node ###
 # Logs
 logs

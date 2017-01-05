@@ -10,18 +10,21 @@ const prefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const clean = require('gulp-clean-css');
 const sourcemap = require('gulp-sourcemaps');
+const annotate = require('gulp-ng-annotate');
 
 const globs = {
   dist: {
     css: "./dist/css",
     js: "./dist/js",
     img: "./dist",
-    html: "./dist"
+    html: "./dist",
+    lib: "./dist/lib"
   },
   src: {
-    sass: "./src/sass/**/*.{scss,sass}",
+    sass: "./src/sass/*.{scss,sass}",
     js: "./src/js/**/*.js",
     img: "./src/**/*.{png,jpg,jpeg,gif,svg}",
+    lib: "./src/lib/**/*",
     html: "./src/**/*.html"
   }
 }
@@ -30,9 +33,10 @@ gulp.task('transpile', () => {
   console.log(gutil.colors.green.bold("Initializing transpiler"));
   return gulp.src(globs.src.js)
     .pipe(plumber())  
+    .pipe(annotate())
     .pipe(babel({ presets: ["es2015"] }))
     .pipe(sourcemap.init())
-    .pipe(uglify())
+    .pipe(uglify({mangle: true, compress:true}))
     .pipe(sourcemap.write())
     .pipe(gulp.dest(globs.dist.js));
 });
@@ -50,7 +54,7 @@ gulp.task('sass', () => {
     .pipe(gulp.dest(globs.dist.css));
 });
 
-gulp.task('htmlmin', () => {
+gulp.task('htmlmin', ['transpile', 'sass'], () => {
   console.log(gutil.colors.green.bold("Initializing HTML minifier"));
   return gulp.src(globs.src.html)
     .pipe(plumber())
@@ -76,10 +80,19 @@ gulp.task('imagemin', () => {
     .pipe(gulp.dest(globs.dist.img))
 });
 
+gulp.task('libs', () => {
+  return gulp.src(globs.src.lib)
+    .pipe(plumber())
+    .pipe(gulp.dest(globs.dist.lib));
+});
+
 gulp.task('watch', () => {
   console.log(gutil.colors.cyan.bold(">> My watch has started"));
   gulp.watch(globs.src.js, ['transpile']);
-  gulp.watch(globs.src.sass, ['sass']);
+  gulp.watch("./src/sass/**/*.{scss,sass}", ['sass']);
   gulp.watch(globs.src.html, ['htmlmin']);
   gulp.watch(globs.src.img, ['imagemin']);
+  gulp.watch(globs.src.lib, ['libs']);
 });
+
+gulp.task('default', ['libs','imagemin','htmlmin']);
