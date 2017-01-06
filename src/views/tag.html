@@ -14,18 +14,41 @@
 
 <body class="container-fluid">
 
-  <header class="row">
-    <div class="logo col-sm-12 animated fadeInLeft delay-100">
-      <h1><strong>Insta</strong><span>Tag Locator</span></h1>
+  <header class="row" ng-controller="tagHeaderController">
+    <div class="logo col-sm-6 animated fadeInLeft delay-100">
+      <h1>
+        <a href="#">
+          <strong>Insta</strong><span>Tag Locator</span>
+        </a>
+      </h1>
+    </div>
+    <div class="logout col-sm-6 animated fadeInRight delay-100">
+      <h1>
+        <a href="#">
+          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> <strong>Log</strong><span>Out</span>
+        </a>
+      </h1>
     </div>
   </header>
+
+  <main class="row" ng-controller="tagMainController">
+    <div class="row wrapper">
+      <div class="col-sm-4 tag-list animated fadeInLeft delay-300">
+        oi
+      </div>
+      <div class="col-sm-8 img-list animated fadeInRight delay-400">
+        oi
+      </div>
+    </div>
+  </main>
  
   <script src="../lib/js/angular.min.js"></script>
   <script src="../lib/js/jquery.min.js"></script>
   <script src="../lib/js/bootstrap.min.js"></script>
   <script async src="../lib/js/moment.min.js"></script>
   <script src="../js/main.js"></script>
-  <script src="../js/controllers/tag-controller.js"></script>
+  <script src="../js/controllers/tag-header-controller.js"></script>
+  <script src="../js/controllers/tag-main-controller.js"></script>
 
 </body>
 
