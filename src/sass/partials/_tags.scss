@@ -7,17 +7,51 @@ body {
 }
 
 header {
-  width: 100%;
-  .logo {
-    @include align(left);
-    @include font-light;
-    color: $text-color;
 
     h1 {
       font-size: 24px;
     }
+
+  .logo {
+    transition: color 500ms ease-in-out;
+    @include align(left);
+    @include font-light;
+    color: $text-color;
+    a {
+      margin-right: 15px;
+      font-size: 24px;
+      transition: color 500ms ease-in-out;
+      text-decoration: none;
+      color: $text-color;
+      &:hover {
+        color: darken($text-color, 20%);
+      }
+    }
   }
-  position: fixed;
-  top: 0;
-  box-shadow: 0 3px 5px 1px rgba(100,100,100,0.3);
+
+  .logout {
+    @extend .logo;
+    @include align(right);
+    a {
+      margin-right: 15px;
+      font-size: 20px;
+      transition: color 500ms ease-in-out;
+      text-decoration: none;
+      color: lighten($text-color, 30%);
+      &:hover {
+        color: darken($text-color, 40%);
+      }
+    }
+  }
+  border-bottom: 1px dashed rgba(100,100,100,0.3);
+}
+
+main {
+  .tag-list {
+    @include align(left);
+  }
+
+  .img-list {
+    @include align(center);
+  }
 }
