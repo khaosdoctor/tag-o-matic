@@ -1,9 +1,11 @@
 html {
   @include reset;
+  overflow: hidden;
 }
 
 body {
   background-color: $bg-color;
+  height: 100vh;
 }
 
 header {
@@ -43,15 +45,27 @@ header {
       }
     }
   }
-  border-bottom: 1px dashed rgba(100,100,100,0.3);
+  border-bottom: 1px solid $border-color;
 }
 
 main {
+  @include font-common;
+  height: 100%;
+  .wrapper {
+    height: 100%;
+  }
   .tag-list {
+    @include font-mono;
     @include align(left);
+    border-right: 1px solid darken($border-color,10%);
+    height: 94%;
+    padding: 15px 10px 10px 45px;
   }
 
   .img-list {
     @include align(center);
+    height: 94%;
+    box-shadow:inset 0 0 10px 1px lighten($border-color, 10%); 
+    padding: 10px;
   }
 }
