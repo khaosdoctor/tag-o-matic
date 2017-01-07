@@ -4,16 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Squid - Tags</title>
-
   <link rel="stylesheet" type="text/css" href="../lib/css/animate.min.css">
   <link rel="stylesheet" type="text/css" href="../lib/css/delay.css">
   <link rel="stylesheet" type="text/css" href="../lib/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../css/tag.css">
-
 </head>
 
 <body class="container-fluid">
-
   <header class="row" ng-controller="tagHeaderController">
     <div class="logo col-sm-6 animated fadeInLeft delay-100">
       <h1>
@@ -31,25 +28,76 @@
     </div>
   </header>
 
+
   <main class="row" ng-controller="tagMainController">
-    <div class="wrapper">
-      <div class="col-sm-4 tag-list">
-        Lorem Ipsum
+    <div class="wrapper row">
+
+      <div class="col-sm-4 tag-list container-fluid">
+        
+        <div class="row-fluid tag-search">
+
+          <div class="col-sm-12">
+            <div class="input-group animated fadeIn delay-400">
+              <span class="input-group-addon" id="search-badge">#</span>
+              <input type="text" class="form-control" placeholder="Digite sua Tag" aria-describedby="search-badge">
+              <span class="input-group-btn">
+                <button class="btn-save btn btn-success">Salvar</button>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <ul class="tags col-sm-12 animated fadeIn delay-800">
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+        </ul>
+
       </div>
+
       <div class="col-sm-8 img-list">
-        Lorem Ipsum
+        <h1 class="title">Resultados</h1>
+
+        <ul class="images">
+
+          <li class="image" ng-repeat="n in photos">
+
+            <div class="box">
+
+              <a class="image-link" href="http://instagram.com/p/{{n}}" target="_blank">
+                <img src="https://unsplash.it/{{image_size}}/{{image_size}}?random&{{n}}" alt="{{n}}">
+              </a>
+
+              <span class="caption">
+                <p><a href="http://instagram.com/{{n}}" target="_blank">@{{n}}</a></p>
+              </span>
+
+            </div>
+
+          </li>
+
+        </ul>
       </div>
+
     </div>
   </main>
- 
+
   <script src="../lib/js/angular.min.js"></script>
   <script src="../lib/js/jquery.min.js"></script>
   <script src="../lib/js/bootstrap.min.js"></script>
   <script async src="../lib/js/moment.min.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/controllers/tag-header-controller.js"></script>
+  <script src="../js/directives/tag-directives.js"></script>
   <script src="../js/controllers/tag-main-controller.js"></script>
-
 </body>
 
 </html>
