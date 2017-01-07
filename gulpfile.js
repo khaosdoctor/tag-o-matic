@@ -11,6 +11,7 @@ const uglify = require('gulp-uglify');
 const clean = require('gulp-clean-css');
 const sourcemap = require('gulp-sourcemaps');
 const annotate = require('gulp-ng-annotate');
+const bs = require('browser-sync');
 
 const globs = {
   dist: {
@@ -23,7 +24,7 @@ const globs = {
   src: {
     sass: "./src/sass/*.{scss,sass}",
     js: "./src/js/**/*.js",
-    img: "./src/**/*.{png,jpg,jpeg,gif,svg}",
+    img: "./src/**/*.{png,jpg,jpeg,gif}",
     lib: "./src/lib/**/*",
     html: "./src/**/*.html"
   }
@@ -46,12 +47,13 @@ gulp.task('sass', () => {
   console.log(gutil.colors.green.bold("Initializing Sass compiler"));
   return gulp.src(globs.src.sass)
     .pipe(plumber())
-    .pipe(sass({ style: "compressed" }).on('error', gutil.log))
+    .pipe(sass({ style: "compressed" }).on('error', sass.logError))
     .pipe(prefixer({ browsers: 'last 5 version' }))
     .pipe(sourcemap.init())
     .pipe(clean())
     .pipe(sourcemap.write())
-    .pipe(gulp.dest(globs.dist.css));
+    .pipe(gulp.dest(globs.dist.css))
+    .pipe(bs.stream());
 });
 
 gulp.task('htmlmin', ['transpile', 'sass'], () => {
@@ -83,7 +85,8 @@ gulp.task('imagemin', () => {
 gulp.task('libs', () => {
   return gulp.src(globs.src.lib)
     .pipe(plumber())
-    .pipe(gulp.dest(globs.dist.lib));
+    .pipe(gulp.dest(globs.dist.lib))
+    .pipe(bs.stream());
 });
 
 gulp.task('watch', () => {
