@@ -7,8 +7,9 @@ node_js:
   - "4"
   - "iojs"
 before_script:
-  - npm i -g ava coveralls nyc
+  - npm i -g ava coveralls nyc gulp
   - npm i --only=dev
+  - npm i
   - npm test
 after_success: npm run coverage
 matrix:
