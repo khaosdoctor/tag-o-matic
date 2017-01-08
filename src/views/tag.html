@@ -49,16 +49,9 @@
         </div>
 
         <ul class="tags col-sm-12 animated fadeIn delay-800">
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
-          <li class="tag-item"><a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a></li>
+          <li class="tag-item" ng-repeat="n in photos">
+            <a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a>
+          </li>
         </ul>
 
       </div>
@@ -70,10 +63,10 @@
 
           <li class="image" ng-repeat="n in photos">
 
-            <div class="box">
+            <div class="animated fadeIn delay-1000 box">
 
               <a class="image-link" href="http://instagram.com/p/{{n}}" target="_blank">
-                <img src="https://unsplash.it/{{image_size}}/{{image_size}}?random&{{n}}" alt="{{n}}">
+                <img ng-src="https://unsplash.it/{{image_size}}/{{image_size}}?random&{{n}}" alt="{{n}}">
               </a>
 
               <span class="caption">
