@@ -12,6 +12,7 @@ const request = require('request');
 //exclude(app);
 params(app);
 
+//Mongo connection
 mongo.connect(cfg.MONGO_CONSTRING, (err) => {
   if (err) {
     log.error("Mongo Connection error =>" + err);
@@ -20,8 +21,10 @@ mongo.connect(cfg.MONGO_CONSTRING, (err) => {
   }
 });
 
+//Require the User model
 const User = require('./models/user.js')(mongo);
 
+//Login api
 app.post('/login', parser.json(), cors, (r, rs) => {
   let query = {
     login: r.body.login,
@@ -42,7 +45,7 @@ app.post('/login', parser.json(), cors, (r, rs) => {
           });
         } else {
           log.info("New user added to the database " + nuser);
-          return rs.json({
+          return rs.status(201).json({
             status: 1,
             message: "Logged",
             data: nuser
@@ -59,6 +62,8 @@ app.post('/login', parser.json(), cors, (r, rs) => {
   });
 });
 
+
+//Get Tag
 app.get('/tag/:tagname', (r, rs) => {
   let tag = r.tagname;
   log.info("New request to search tag by name =>" + tag);
@@ -128,39 +133,64 @@ function fetchUsers(image_array, rs) {
 //New Tag
 app.post('/tag', parser.json(), cors, (r, rs) => {
 
-  let user_id = r.body.user_id;
+  let user_id = r.body.user_id; //Gets the user id from the post request
+  let tag = { //Mounts the tag object
+    "name": r.body.tag
+  };
 
-  User.findById(user_id, (err, user) => {
+  User.findOne({"_id": user_id}, (err, user) => {
+    let tags = user.tags; //gets all tags owned by the user
+
+    //Error searching an user
     if (err) {
       log.error("Error searching user =>" + err);
-      rs.status(500).json({
+      return rs.status(500).json({
         status: 0,
-        message: err
+        message: err,
+        data: {}
       });
     }
 
-    let tag = r.body.tag;
-    let tags = user.tags;
-    tags.push(tag);
-
-    user.save((err) => {
-      if (err) {
-        log.error("Error saving new tag => " + err);
-        rs.status(500).json({
-          status: 0,
-          message: err
-        });
-      }
-
-      log.info("New tag created =>" + user.tags);
-      rs.status(201).json({
-        status: 1,
-        message: "New tag created",
-        data: user.tags
+    //No user found
+    if (!user) {
+      return rs.status(404).json({
+        status: 0,
+        message: "No user found",
+        data: {}
       });
-    });
-  })
+    }
 
+    //Checks if the selected tag isn't already added ($addToSet was proving itself too difficult to implement)
+    if (!tags.filter((elem) => { return elem.name == tag.name; }).length > 0) { //If there's no match
+      tags.push(tag); //Push the new tag
+
+      user.save((err, news) => { //Saves the model
+        if (err) { //Checks for errors during the saving process
+          log.error("Error saving new tag => " + err);
+          return rs.status(500).json({
+            status: 0,
+            message: err,
+            data: {}
+          });
+        }
+
+        log.info("New tag created =>" + user.tags)//Saved successfully
+        return rs.status(201).json({
+          status: 1,
+          message: "New tag created",
+          data: user.tags
+        });
+      });
+
+    } else { //Tag already existed, never changed
+      return rs.status(304).json({
+        status: 1,
+        message: "User already saved this tag",
+        data: tags
+      });
+    }
+
+  });
 });
 
 
