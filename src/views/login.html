@@ -20,18 +20,21 @@
   <main ng-controller="loginController" class="row">
     <div class="caption col-sm-12 center-block clearfix">
       <p class="sub animated fadeInUp delay-1000">Bem vindo!</p>
-      <p class="sub animated fadeInUp delay-1100">Primeiramente faça o login:</p>
+      <p class="sub animated fadeInUp delay-1100">Primeiramente faça o login, se seu usuário não existir criaremos um para você!</p>
     </div>
-    <form action="">
+    <form name="loginForm" ng-submit="formGo(loginForm.$valid)" novalidate>
       <div class="form-group col-sm-2 col-sm-offset-5 animated fadeInLeft delay-1300">
         <label for="user">Usuário</label>
-        <input type="text" class="form-control" id="user" placeholder="Usuário" required>
+        <input ng-model="fields.user" type="text" class="form-control" name="user" id="user" placeholder="Usuário" ng-required="true">
+        <p ng-show="loginForm.user.$invalid && !loginForm.user.$pristine" class="alert alert-danger help-block">Opa! Você precisa digitar um usuário</p>
       </div>
       <div class="form-group col-sm-2 col-sm-offset-5 animated fadeInRight delay-1400">
         <label for="senha">Senha</label>
-        <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+        <input ng-model="fields.pass" type="password" class="form-control" name="senha" id="senha" placeholder="Senha" ng-minlength="5" ng-required="true">
+        <p ng-show="loginForm.senha.$error.minlength" class="alert alert-warning help-block">Sua senha é muito curta... Digite algo com mais de 5 letras</p>
+        <p ng-show="loginForm.senha.$error.required && !loginForm.senha.$pristine" class="alert alert-danger help-block">Você precisa colocar uma senha!</p>
       </div>
-      <button type="submit" class="go form-group btn-lg btn btn-primary col-sm-2 col-sm-offset-5  animated fadeInUp delay-1500">Entrar</button>
+      <button type="submit" ng-disabled="loginForm.$invalid" class="go form-group btn-lg btn btn-primary col-sm-2 col-sm-offset-5  animated fadeInUp delay-1500">Entrar</button>
     </form>
   </main>
 
@@ -42,10 +45,13 @@
   <div class="bghash"></div>
 
   <script src="../lib/js/angular.min.js"></script>
+  <script src="../lib/js/angular-cookies.js"></script>
   <script src="../lib/js/jquery.min.js"></script>
   <script src="../lib/js/bootstrap.min.js"></script>
   <script async src="../lib/js/moment.min.js"></script>
+  <script async src="../lib/js/crypto.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/services/configFactory.js"></script>
   <script src="../js/controllers/login-controller.js"></script>
 
 </body>

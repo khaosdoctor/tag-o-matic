@@ -1,2 +1,3 @@
-angular.module('loginModule', []);
-angular.module('tagModule', []);
+angular.module('loginModule', ['serviceModule','ngCookies']);
+angular.module('tagModule', ['serviceModule','ngCookies']);
+angular.module('serviceModule', []);
