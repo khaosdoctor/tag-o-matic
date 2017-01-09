@@ -9,8 +9,9 @@ const mongo = require('mongoose');
 const request = require('request');
 
 //Excluding urls
-//exclude(app);
+exclude(app);
 params(app);
+app.all('*', cors); //Removing CORS (Unsafe for production)
 
 //Mongo connection
 mongo.connect(cfg.MONGO_CONSTRING, (err) => {
@@ -24,8 +25,16 @@ mongo.connect(cfg.MONGO_CONSTRING, (err) => {
 //Require the User model
 const User = require('./models/user.js')(mongo);
 
+app.get('/user/:id', (r, rs) => {
+  User.findOne({ "_id": r.params.id }, 'login tags', (err, user) => {
+    return rs.json({
+        data: user
+    });
+  });
+});
+
 //Login api
-app.post('/login', parser.json(), cors, (r, rs) => {
+app.post('/login', parser.json(), (r, rs) => {
   let query = {
     login: r.body.login,
     pass: r.body.pass
@@ -131,7 +140,7 @@ function fetchUsers(image_array, rs) {
 
 
 //New Tag
-app.post('/tag', parser.json(), cors, (r, rs) => {
+app.post('/tag', parser.json(), (r, rs) => {
 
   let user_id = r.body.user_id; //Gets the user id from the post request
   let tag = { //Mounts the tag object
