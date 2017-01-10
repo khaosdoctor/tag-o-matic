@@ -11,83 +11,84 @@
 </head>
 
 <body class="container-fluid">
-  <header class="row" ng-controller="tagHeaderController">
+  <header class="row" ng-controller="tagHeaderController" ng-init="init()">
     <div class="logo col-sm-6 animated fadeInLeft delay-100">
       <h1>
         <a href="#">
-          <strong>Insta</strong><span>Tag Locator</span>
+          <strong>Insta</strong><span>Tag Locator: Olá <strong>{{user.login}}</strong>!</span>
         </a>
       </h1>
     </div>
     <div class="logout col-sm-6 animated fadeInRight delay-100">
       <h1>
-        <a href="#">
+        <a href="#" ng-click="logOut()">
           <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> <strong>Log</strong><span>Out</span>
         </a>
       </h1>
     </div>
   </header>
-
-
-  <main class="row" ng-controller="tagMainController">
+  <main class="row" ng-controller="tagMainController" ng-init="init()">
     <div class="wrapper row">
-
       <div class="col-sm-4 tag-list container-fluid">
-        
         <div class="row-fluid tag-search">
-
           <div class="col-sm-12">
-            <div class="input-group animated fadeIn delay-400">
-              <span class="input-group-addon" id="search-badge">#</span>
-              <input type="text" class="form-control" placeholder="Digite sua Tag" aria-describedby="search-badge">
-              <span class="input-group-btn">
-                <button class="btn-save btn btn-success">Salvar</button>
+            <form name="tagForm" novalidate>
+              <div class="input-group animated fadeIn delay-400">
+                <span class="input-group-addon" id="search-badge">#</span>
+                <input ng-model="tagSearch.name" ng-required="true" name="tagSearch" type="text" class="form-control" placeholder="Digite sua Tag" aria-describedby="search-badge">
+                <span class="input-group-btn">
+                <button class="btn-save btn btn-success" ng-click="saveTag(tagForm.$valid)" ng-disabled="tagForm.$invalid">Salvar</button>
+                <button class="btn-save btn btn-primary" ng-click="searchTag(tagSearch.name)" ng-disabled="tagForm.$invalid">Pesquisar</button>
               </span>
-            </div>
+              </div>
+            </form>
           </div>
-
         </div>
-
         <ul class="tags col-sm-12 animated fadeIn delay-800">
-          <li class="tag-item" ng-repeat="n in photos">
-            <a href="#">Lorem Ipsum Sit Dolor Amet Veritas</a>
+          <li class="tag-item" ng-repeat="tag in user.tags">
+            <a href="#" ng-click="searchTag(tag.name)">{{tag.name}}</a>
+            <button type="button" class="close pull-right" aria-label="Close" ng-click="removeTag(tag._id)"><span aria-hidden="true">&times;</span></button>
+          </li>
+          <li ng-show="user.tags.length == 0" class="tag-item">
+            Você ainda não tem nenhuma tag aqui!
           </li>
         </ul>
-
       </div>
-
       <div class="col-sm-8 img-list">
-        <h1 class="title">Resultados</h1>
-
+        <h1 class="title">Resultados{{tag_search_name}}</h1>
         <ul class="images">
-
-          <li class="image" ng-repeat="n in photos">
-
-            <div class="animated fadeIn delay-1000 box">
-
-              <a class="image-link" href="http://instagram.com/p/{{n}}" target="_blank">
-                <img ng-src="https://unsplash.it/{{image_size}}/{{image_size}}?random&{{n}}" alt="{{n}}">
-              </a>
-
-              <span class="caption">
-                <p><a href="http://instagram.com/{{n}}" target="_blank">@{{n}}</a></p>
-              </span>
-
-            </div>
-
+          <li ng-show="photos.length == 0" class="tag-item">
+            <h2>Você ainda não tem nenhum resultado pesquise alguma coisa!</h2>
           </li>
-
+          <li ng-show="isLoading" class="tag-item">
+            <img src="http://app.gtpcloud.com/_lib/prod/third/_gthealth/img/loginloader.gif" alt="Loading..">
+          </li>
+          <li class="image" ng-repeat="photo in photos">
+            <div class="animated fadeIn delay-1000 box">
+              <a class="image-link" href="{{photo.link}}" target="_blank">
+                <img ng-src="{{photo.src}}" alt="{{photo.caption}}">
+              </a>
+              <span class="caption">
+                <p>
+                  <a href="http://instagram.com/{{photo.owner.username}}" target="_blank">
+                    <span>@{{photo.owner.username}} ({{photo.owner.full_name}})</span>
+                    <img class="owner-pic pull-left" src="{{photo.owner.profile_pic}}" alt="{{photo.owner.full_name}}">
+                  </a>
+                </p>
+              </span>
+            </div>
+          </li>
         </ul>
       </div>
-
     </div>
   </main>
-
   <script src="../lib/js/angular.min.js"></script>
+  <script src="../lib/js/angular-cookies.js"></script>
   <script src="../lib/js/jquery.min.js"></script>
   <script src="../lib/js/bootstrap.min.js"></script>
   <script async src="../lib/js/moment.min.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/services/configFactory.js"></script>
   <script src="../js/controllers/tag-header-controller.js"></script>
   <script src="../js/directives/tag-directives.js"></script>
   <script src="../js/controllers/tag-main-controller.js"></script>

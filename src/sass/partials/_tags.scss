@@ -95,6 +95,10 @@ main {
         content: "#";
         padding-right: 5px;
       }
+      .close {
+        font-size: 32px;
+        line-height: inherit;
+      }
     }
   }
   .img-list {
@@ -158,6 +162,20 @@ main {
           bottom: 0;
           width: 100%;
           height: 20%;
+
+          .owner-pic {
+            width: 60px;
+            height: 60px;
+          }
+
+          p {
+            @include align(left);
+          }
+
+          a {
+            line-height: 60px;
+
+          }
 
           &:hover {
             background-color: rgba(0,0,0,0.8);
