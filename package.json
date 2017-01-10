@@ -1,6 +1,6 @@
 {
   "name": "tag-o-matic",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Instagram Tag Search Study",
   "main": "api/api.js",
   "scripts": {
