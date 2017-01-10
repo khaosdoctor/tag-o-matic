@@ -29,6 +29,7 @@
   </header>
   <main class="row" ng-controller="tagMainController" ng-init="init()">
     <div class="wrapper row">
+
       <div class="col-sm-4 tag-list container-fluid">
         <div class="row-fluid tag-search">
           <div class="col-sm-12">
@@ -44,9 +45,10 @@
             </form>
           </div>
         </div>
+
         <ul class="tags col-sm-12 animated fadeIn delay-800">
           <li class="tag-item" ng-repeat="tag in user.tags">
-            <a href="#" ng-click="searchTag(tag.name)">{{tag.name}}</a>
+            <a href="#" ng-class="{'active':tagActive == tag.name}" ng-click="searchTag(tag.name)">{{tag.name}}</a>
             <button type="button" class="close pull-right" aria-label="Close" ng-click="removeTag(tag._id)"><span aria-hidden="true">&times;</span></button>
           </li>
           <li ng-show="user.tags.length == 0" class="tag-item">
@@ -54,6 +56,7 @@
           </li>
         </ul>
       </div>
+
       <div class="col-sm-8 img-list">
         <h1 class="title">Resultados{{tag_search_name}}</h1>
         <ul class="images">
@@ -80,6 +83,7 @@
           </li>
         </ul>
       </div>
+
     </div>
   </main>
   <script src="../lib/js/angular.min.js"></script>

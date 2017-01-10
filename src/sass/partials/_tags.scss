@@ -45,12 +45,15 @@ header {
   border-bottom: 1px solid $border-color;
 }
 
+// Main wrapper
 main {
   @include font-common;
   height: 100%;
   .wrapper {
     height: 100%;
   }
+
+  // Tags list
   .tag-list {
     @include font-mono;
     @include align(left);
@@ -59,6 +62,8 @@ main {
     border-right: 1px solid darken($border-color, 10%);
     height: 94%;
     overflow: auto;
+
+    // Top tag search
     .tag-search {
       height: 50px;
       border-bottom: 1px solid $border-color;
@@ -70,12 +75,16 @@ main {
         }
       }
     }
+
+    // Outer tag list
     ul.tags {
       list-style: none;
       margin-left: 0;
       padding-left: 0;
       text-align: center;
     }
+
+    // Single tag
     li.tag-item {
       color: darken($text-color, 45%);
       padding-left: 1em;
@@ -83,9 +92,17 @@ main {
       line-height: 65px;
       font-size: 24px;
       vertical-align: middle;
+
+      // Single tag link
       a {
         color: #3e3e3e;
+        &.active {
+          color: #5aa0d8;
+          text-decoration: underline;
+        }
       }
+
+      // Hashtag sign
       &:before {
         color: lighten($text-color, 35%);
         font-size: 48px;
@@ -95,23 +112,31 @@ main {
         content: "#";
         padding-right: 5px;
       }
+
+      // Delete button
       .close {
         font-size: 32px;
         line-height: inherit;
       }
     }
   }
+
+  // Image list
   .img-list {
     overflow: auto;
     @include align(center);
     height: 94%;
     box-shadow: inset 0 0 10px 1px lighten($border-color, 10%);
     padding: 10px;
+
+    // Block Title
     .title {
       @include align(left);
       @include font-light;
       border-bottom: 1px dashed lighten($border-color, 25%);
     }
+
+    // Outer image title
     ul.images {
       @include align(center);
       list-style: none;
@@ -119,10 +144,12 @@ main {
       padding: 0;
       margin: 0;
 
+      // Single image
       li.image {
         display: inline;
         position: relative;
 
+        // Outer image box
         .box {
           display: inline-block;
           background-image: url("http://placehold.it/#{$result-image-size}x#{$result-image-size}&text=Loading...");
@@ -131,12 +158,14 @@ main {
           width: $result-image-size;
           height: $result-image-size;
           transition: all 300ms ease-in-out;
-
+          
+          // Caption link
           a {
             text-decoration: none;
             color: white;
           }
 
+          // Image element
           img {
             margin-right: 5px;
             // margin-top: 5px;
@@ -145,6 +174,7 @@ main {
             border: 1px solid darken($border-color, 40%);
           }
 
+          // Hover effect
           &:hover {
             transform: scale(1.5);
             z-index:1000;
@@ -152,6 +182,7 @@ main {
 
         }
 
+        // Caption text
         .caption {
           background-color: rgba(0,0,0,0.5);
           position: absolute;
@@ -163,25 +194,33 @@ main {
           width: 100%;
           height: 20%;
 
+          //Display owner picture
           .owner-pic {
             width: 60px;
             height: 60px;
           }
 
+          //Caption username align left
           p {
             @include align(left);
           }
 
+          //Align all to center
           a {
             line-height: 60px;
 
           }
 
+          //Slow hover on caption
           &:hover {
             background-color: rgba(0,0,0,0.8);
           }
-        }
-      }
-    }
-  }
-}
+        } //End Caption
+
+      } // End Single image
+
+    } //End image list
+
+  } //End image block
+
+} // end main wrapper

@@ -4,6 +4,7 @@
   angular.module('serviceModule')
     .factory('configFactory', configFactory);
   
+  //Returns the endpointlist
   function configFactory() {
     return {
       endpoints: {
