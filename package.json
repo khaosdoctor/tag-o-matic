@@ -1,8 +1,8 @@
 {
   "name": "tag-o-matic",
-  "version": "1.1.0",
+  "version": "1.5.0",
   "description": "Instagram Tag Search Study",
-  "main": "index.js",
+  "main": "api/api.js",
   "scripts": {
     "test": "nyc ava ./tests/test.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -50,7 +50,10 @@
     ]
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "mongoose": "^4.7.5"
+    "knoblr": "^2.3.1",
+    "mongoose": "^4.7.5",
+    "request": "^2.79.0"
   }
 }
