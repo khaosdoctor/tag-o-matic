@@ -26,9 +26,11 @@ mongo.connect(cfg.MONGO_CONSTRING, (err) => {
 const User = require('./models/user.js')(mongo);
 
 app.get('/user/:id', (r, rs) => {
-  User.findOne({ "_id": r.params.id }, 'login tags', (err, user) => {
+  User.findOne({
+    "_id": r.params.id
+  }, 'login tags', (err, user) => {
     return rs.json({
-        data: user
+      data: user
     });
   });
 });
@@ -147,7 +149,9 @@ app.post('/tag', parser.json(), (r, rs) => {
     "name": r.body.tag
   };
 
-  User.findOne({"_id": user_id}, (err, user) => {
+  User.findOne({
+    "_id": user_id
+  }, (err, user) => {
     let tags = user.tags; //gets all tags owned by the user
 
     //Error searching an user
@@ -170,8 +174,10 @@ app.post('/tag', parser.json(), (r, rs) => {
     }
 
     //Checks if the selected tag isn't already added ($addToSet was proving itself too difficult to implement)
-    if (!tags.filter((elem) => { return elem.name == tag.name; }).length > 0) { //If there's no match
-      tags.push(tag); //Push the new tag
+    if (!tags.filter((elem) => {
+        return elem.name == tag.name;
+      }).length > 0) { //If there's no match
+      tags.unshift(tag); //Push the new tag
 
       user.save((err, news) => { //Saves the model
         if (err) { //Checks for errors during the saving process
@@ -183,11 +189,11 @@ app.post('/tag', parser.json(), (r, rs) => {
           });
         }
 
-        log.info("New tag created =>" + user.tags)//Saved successfully
+        log.info("New tag created =>" + user.tags) //Saved successfully
         return rs.status(201).json({
           status: 1,
           message: "New tag created",
-          data: user.tags
+          data: user
         });
       });
 
@@ -200,6 +206,22 @@ app.post('/tag', parser.json(), (r, rs) => {
     }
 
   });
+});
+
+//Delete tag
+app.delete("/tag/:uid/:tagid", (r, rs) => {
+  User.update({"_id": r.params.uid}, {"$pull": {
+      "tags": { "_id": r.params.tagid }
+      }
+    }, {
+      "safe": true
+    },
+    (err, obj) => {
+      return rs.json({
+        status: obj.ok,
+        message: "Tag removed"
+      });
+    });
 });
 
 
